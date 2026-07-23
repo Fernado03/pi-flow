@@ -2,6 +2,15 @@ import type { ExtensionAPI, ExtensionContext } from "@oh-my-pi/pi-coding-agent";
 
 const STATE_TYPE = "pi-flow-mode";
 const STATUS_KEY = "pi-flow";
+const PARENT_ENABLED = Symbol.for("@fernado03/pi-flow/parent-enabled");
+const SUBAGENT_MARKER =
+	"You are operating on a piece of work assigned to you by the main agent.";
+
+const processState = globalThis as unknown as Record<symbol, unknown>;
+
+function setParentEnabled(enabled: boolean) {
+	processState[PARENT_ENABLED] = enabled;
+}
 
 const PREFERENCE =
 	"Pi Flow is enabled for this session: prefer the smallest suitable Pi Flow workflow " +
@@ -33,19 +42,22 @@ export default function piFlow(pi: ExtensionAPI) {
 		if (ctx.hasUI) ctx.ui.setStatus(STATUS_KEY, renderStatus());
 	};
 
-	pi.on("session_start", async (_event, ctx) => {
+	const restoreState = (ctx: ExtensionContext) => {
 		enabled = readPersistedState(ctx)?.enabled ?? false;
+		if (ctx.hasUI) setParentEnabled(enabled);
 		applyStatus(ctx);
+	};
+
+	pi.on("session_start", async (_event, ctx) => {
+		restoreState(ctx);
 	});
 
 	pi.on("session_branch", async (_event, ctx) => {
-		enabled = readPersistedState(ctx)?.enabled ?? false;
-		applyStatus(ctx);
+		restoreState(ctx);
 	});
 
 	pi.on("session_tree", async (_event, ctx) => {
-		enabled = readPersistedState(ctx)?.enabled ?? false;
-		applyStatus(ctx);
+		restoreState(ctx);
 	});
 
 	pi.registerCommand("pi-flow", {
@@ -54,6 +66,7 @@ export default function piFlow(pi: ExtensionAPI) {
 			const action = args.trim().toLowerCase();
 			if (action === "on") {
 				enabled = true;
+				setParentEnabled(enabled);
 				await pi.appendEntry(STATE_TYPE, { enabled } satisfies PiFlowState);
 				applyStatus(ctx);
 				ctx.ui.notify("Pi Flow on — preferring Pi Flow workflows this session.", "info");
@@ -61,6 +74,7 @@ export default function piFlow(pi: ExtensionAPI) {
 			}
 			if (action === "off") {
 				enabled = false;
+				setParentEnabled(enabled);
 				await pi.appendEntry(STATE_TYPE, { enabled } satisfies PiFlowState);
 				applyStatus(ctx);
 				ctx.ui.notify("Pi Flow off — back to normal skill selection.", "info");
@@ -74,8 +88,19 @@ export default function piFlow(pi: ExtensionAPI) {
 		},
 	});
 
-	pi.on("before_agent_start", async () => {
-		if (!enabled) return;
-		return { systemPrompt: [PREFERENCE] };
+	pi.on("before_agent_start", async (event) => {
+		const base = Array.isArray(event.systemPrompt)
+			? event.systemPrompt
+			: [event.systemPrompt];
+		const isTaskSubagent = base.some(
+			(prompt) => typeof prompt === "string" && prompt.includes(SUBAGENT_MARKER),
+		);
+		const effectiveEnabled = isTaskSubagent
+			? processState[PARENT_ENABLED] === true
+			: enabled;
+		if (!effectiveEnabled) return;
+		return {
+			systemPrompt: base.includes(PREFERENCE) ? base : [...base, PREFERENCE],
+		};
 	});
 }

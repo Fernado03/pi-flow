@@ -51,7 +51,7 @@ Pi Flow is a preference, not an override. The bundled extension registers one co
 /pi-flow status  Show the current mode
 ```
 
-While on, the extension injects a short per-turn preference (~60 tokens): choose at most one matching Pi Flow skill, skip ceremony for trivial requests, and verify observable behavior. While off (the default), nothing is injected and Pi Flow stays purely on-demand. The state persists across session resume/branch. A status-line chip (`Pi Flow: on|off`) shows the current mode.
+While on, the extension appends a short per-turn preference (~60 tokens): choose at most one matching Pi Flow skill, skip ceremony for trivial requests, and verify observable behavior. OMP task subagents created from the session inherit the active preference while preserving their own system prompt; unrelated headless sessions do not. While off (the default), nothing is injected and Pi Flow stays purely on-demand. The state persists across session resume/branch. A status-line chip (`Pi Flow: on|off`) shows the current mode.
 
 ## Commands
 

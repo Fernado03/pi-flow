@@ -208,7 +208,7 @@ function checkManifest() {
   }
 
   if (manifest.name !== "@fernado03/pi-flow") report(path, "name must be @fernado03/pi-flow");
-  if (manifest.version !== "0.2.0") report(path, "version must be 0.2.0");
+  if (manifest.version !== "0.2.1") report(path, "version must be 0.2.1");
   if (manifest.type !== "module") report(path, "type must be module");
   for (const field of ["dependencies", "devDependencies", "optionalDependencies", "peerDependencies", "bundledDependencies"]) {
     const value = manifest[field];

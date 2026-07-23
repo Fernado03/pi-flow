@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1 — 2026-07-23
+
+### Fixed
+
+- `/pi-flow on` now inherits into OMP task subagents through process-local session state without writing entries into child sessions.
+- Pi Flow preference injection now appends to and preserves the existing parent/subagent system prompt, with duplicate suppression.
+- Unrelated headless sessions remain isolated, and interactive session switches reset inherited state from their own persisted branch.
+
 ## 0.2.0 — 2026-07-23
 
 ### Added
