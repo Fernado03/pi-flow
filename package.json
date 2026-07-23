@@ -1,6 +1,6 @@
 {
   "name": "@fernado03/pi-flow",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "OMP-native static workflows for deliberate engineering decisions.",
   "type": "module",
   "license": "MIT",
@@ -13,13 +13,15 @@
     "rules",
     "scripts",
     "compat",
+    "extensions",
     "README.md",
     "CHANGELOG.md",
     "LICENSE"
   ],
   "omp": {
     "name": "Pi Flow",
-    "description": "Static OMP workflows for focused research, decisions, reviews, and delivery."
+    "description": "Static OMP workflows for focused research, decisions, reviews, and delivery.",
+    "extensions": ["./extensions/index.ts"]
   },
   "pi": {
     "skills": ["./compat/pi/skills"],

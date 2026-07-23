@@ -14,7 +14,7 @@ const forbiddenTerms = [
   "Todo" + "Write",
   "`" + "Ag" + "ent` tool",
 ];
-const requiredFiles = ["skills", "commands", "rules", "scripts", "compat", "README.md", "CHANGELOG.md", "LICENSE"];
+const requiredFiles = ["skills", "commands", "rules", "scripts", "compat", "extensions", "README.md", "CHANGELOG.md", "LICENSE"];
 
 function report(path, message) {
   errors.push(`${relative(root, path) || "."}: ${message}`);
@@ -208,7 +208,7 @@ function checkManifest() {
   }
 
   if (manifest.name !== "@fernado03/pi-flow") report(path, "name must be @fernado03/pi-flow");
-  if (manifest.version !== "0.1.0") report(path, "version must be 0.1.0");
+  if (manifest.version !== "0.2.0") report(path, "version must be 0.2.0");
   if (manifest.type !== "module") report(path, "type must be module");
   for (const field of ["dependencies", "devDependencies", "optionalDependencies", "peerDependencies", "bundledDependencies"]) {
     const value = manifest[field];
@@ -221,7 +221,11 @@ function checkManifest() {
     report(path, "omp must provide non-empty name and description");
   } else {
     for (const key of Object.keys(manifest.omp)) {
-      if (key !== "name" && key !== "description") report(path, `omp must not configure runtime integration ${key}`);
+      if (key !== "name" && key !== "description" && key !== "extensions") report(path, `omp must not configure runtime integration ${key}`);
+    }
+    const extensions = manifest.omp.extensions;
+    if (!Array.isArray(extensions) || extensions.length !== 1 || extensions[0] !== "./extensions/index.ts") {
+      report(path, "omp.extensions must be exactly [\"./extensions/index.ts\"]");
     }
   }
   for (const field of ["main", "module", "exports", "bin"]) {

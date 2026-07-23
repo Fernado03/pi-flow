@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.0 — 2026-07-23
+
+### Added
+
+- **Session toggle extension** (`extensions/index.ts`): `/pi-flow on|off|status` opts the current session in or out of Pi Flow workflow preference.
+  - While on, `before_agent_start` appends one short preference block per turn (~60 tokens): prefer the smallest suitable Pi Flow skill, skip ceremony for trivial requests, verify observable behavior.
+  - While off (default), nothing is injected — Pi Flow stays purely on-demand, keeping baseline token cost unchanged from 0.1.0.
+  - State persists via `pi.appendEntry("pi-flow-mode", ...)` across session resume/branch; a status-line chip shows `Pi Flow: on|off`.
+  - Extension is optional runtime wiring; skills, commands, and rules remain statically discovered and unchanged.
+- Manifest gains `omp.extensions: ["./extensions/index.ts"]`; package `files` adds `extensions`.
+
 ## 0.1.0 — 2026-07-23
 
 - Derived from the latest `mattpocock/skills` through `ed37663` (2026-07-21).

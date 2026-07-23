@@ -1,10 +1,10 @@
 # Pi Flow
 
-Pi Flow is a dependency-free, static workflow package for [Oh My Pi](https://github.com/can1357/oh-my-pi). It packages focused engineering disciplines and command wrappers; it does not ship a runtime extension.
+Pi Flow is a dependency-free workflow package for [Oh My Pi](https://github.com/can1357/oh-my-pi). It packages focused engineering disciplines, command wrappers, and one tiny toggle extension (`/pi-flow on|off|status`) that lets you opt in or out of Pi Flow workflow preference per session.
 
 ## Canonical Package
 
-This repository root (`@fernado03/pi-flow`) is the **canonical OMP package**. It is installed via OMP and discovered statically—no runtime extension, no install hook, no executable.
+This repository root (`@fernado03/pi-flow`) is the **canonical OMP package**. It is installed via OMP and discovered statically (skills, commands, rules) plus one small runtime extension for the session toggle. There is no install hook and no executable.
 
 > **Original Pi compatibility export**: A separate generated export of the original Pi (badlogic/pi-mono@9b3a205, 2026-07-22) lives in [`compat/pi/`](compat/pi/README.md). It installs via `pi install npm:@fernado03/pi-flow`, `pi install <path>`, or `pi -e <path>` (original Pi CLI), provides `pi.skills` adapters and `pi.prompts` `/pi-*` wrappers, and records compatibility against badlogic/pi-mono@9b3a205. **It is not the canonical package.** See [`compat/pi/README.md`](compat/pi/README.md) for boundaries, translation limits, and generator behavior.
 
@@ -37,8 +37,21 @@ OMP discovers this package directly from its conventional roots:
 - `skills/<name>/SKILL.md` contains one flat skill per directory.
 - `commands/*.md` provides slash-command wrappers.
 - `rules/` contains small always-loaded guidance.
+- `extensions/index.ts` registers `/pi-flow on|off|status`.
 
-There is no install hook, executable integration, or runtime extension. After installing or linking, update the package files and run `/reload-plugins` to refresh discovery.
+There is no install hook or executable. After installing or linking, update the package files and run `/reload-plugins` to refresh discovery.
+
+## Session Toggle
+
+Pi Flow is a preference, not an override. The bundled extension registers one command:
+
+```text
+/pi-flow on      Prefer the smallest suitable Pi Flow workflow this session
+/pi-flow off     Return to normal OMP skill selection
+/pi-flow status  Show the current mode
+```
+
+While on, the extension injects a short per-turn preference (~60 tokens): choose at most one matching Pi Flow skill, skip ceremony for trivial requests, and verify observable behavior. While off (the default), nothing is injected and Pi Flow stays purely on-demand. The state persists across session resume/branch. A status-line chip (`Pi Flow: on|off`) shows the current mode.
 
 ## Commands
 
@@ -56,7 +69,7 @@ Each wrapper routes to exactly one skill. Read a skill directly when you need it
 
 ## Token Strategy
 
-The baseline prompt receives only the tiny rule content and visible skill metadata. Full skill bodies load on demand through `skill://` references. User-invoked workflows set `disable-model-invocation: true`, keeping their metadata out of the baseline; reusable model-invoked disciplines remain visible. This keeps ordinary turns small without discarding the detailed procedure when it is needed.
+The baseline prompt receives only the tiny rule content and visible skill metadata. Full skill bodies load on demand through `skill://` references. User-invoked workflows set `disable-model-invocation: true`, keeping their metadata out of the baseline; reusable model-invoked disciplines remain visible. When `/pi-flow on` is active, one short preference block (~60 tokens) is appended per turn; when off, nothing is injected. This keeps ordinary turns small without discarding the detailed procedure when it is needed.
 
 ## Package Checks
 
