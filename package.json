@@ -1,0 +1,33 @@
+{
+  "name": "@fernado03/pi-flow",
+  "version": "0.1.0",
+  "description": "OMP-native static workflows for deliberate engineering decisions.",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "pi-package"
+  ],
+  "files": [
+    "skills",
+    "commands",
+    "rules",
+    "scripts",
+    "compat",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "omp": {
+    "name": "Pi Flow",
+    "description": "Static OMP workflows for focused research, decisions, reviews, and delivery."
+  },
+  "pi": {
+    "skills": ["./compat/pi/skills"],
+    "prompts": ["./compat/pi/prompts"]
+  },
+  "scripts": {
+    "check": "node scripts/check.js",
+    "pack:check": "npm pack --dry-run",
+    "build:pi-compat": "node scripts/build-pi-compat.js"
+  }
+}
