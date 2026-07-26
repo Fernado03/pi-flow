@@ -128,15 +128,9 @@ function checkCompatFiles() {
     if (entry.isDirectory()) skills.add(entry.name);
   }
   const expectedPrompts = new Set();
-  const commandSkillMap = new Map();
   for (const path of filesIn(resolve(root, "commands"))) {
     const name = path.slice(0, -3).split("/").pop().split("\\").pop();
     expectedPrompts.add(name);
-    const text = readText(path);
-    const match = text.match(/skill:\/\/([^\s`]+)/);
-    if (match) {
-      commandSkillMap.set(name, match[1]);
-    }
   }
 
   for (const entry of readdirSync(skillsDir, { withFileTypes: true })) {
@@ -176,10 +170,6 @@ function checkCompatFiles() {
       if (!text.includes("$ARGUMENTS")) {
         report(promptFile, "compat prompt missing $ARGUMENTS placeholder");
       }
-      const expectedSkillRef = commandSkillMap.get(prompt);
-      if (expectedSkillRef && !text.includes(`skill://${expectedSkillRef}`)) {
-        report(promptFile, `compat prompt missing skill://${expectedSkillRef} reference`);
-      }
     }
   }
 
@@ -208,7 +198,7 @@ function checkManifest() {
   }
 
   if (manifest.name !== "@fernado03/pi-flow") report(path, "name must be @fernado03/pi-flow");
-  if (manifest.version !== "0.2.1") report(path, "version must be 0.2.1");
+  if (manifest.version !== "0.2.2") report(path, "version must be 0.2.2");
   if (manifest.type !== "module") report(path, "type must be module");
   for (const field of ["dependencies", "devDependencies", "optionalDependencies", "peerDependencies", "bundledDependencies"]) {
     const value = manifest[field];

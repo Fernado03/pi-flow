@@ -63,7 +63,7 @@ export default function piFlow(pi: ExtensionAPI) {
 	pi.registerCommand("pi-flow", {
 		description: "Toggle Pi Flow workflow preference for this session",
 		handler: async (args, ctx) => {
-			const action = args.trim().toLowerCase();
+			const action = (args ?? "").trim().toLowerCase();
 			if (action === "on") {
 				enabled = true;
 				setParentEnabled(enabled);

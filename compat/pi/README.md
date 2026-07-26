@@ -7,7 +7,7 @@ This package provides a **compatibility export** of the original [Pi](https://gi
 A generated compatibility layer that translates the original Pi (badlogic/pi-mono@9b3a205, 2026-07-22) into an OMP-compatible package:
 
 - **`pi.skills`** — Generated adapters that load canonical skill bodies from the canonical OMP package (`@fernado03/pi-flow`) via `skill://` references. No skill bodies are duplicated.
-- **`pi.prompts`** — `/pi-*` slash-command wrappers that delegate to the canonical skill bodies via `skill://` references. They use original Pi's `$ARGUMENTS` convention.
+- **`pi.prompts`** — `/pi-*` slash-command wrappers that locate the installed `@fernado03/pi-flow` package root and read its `compat/pi/skills/<name>/SKILL.md` adapter directly (original Pi has no `skill://` loader). They use original Pi's `$ARGUMENTS` convention.
 - **No runtime extension** — Like the canonical package, this is a static OMP package with no runtime extension, install hook, or executable.
 
 ## What This Is Not
@@ -66,9 +66,10 @@ Original Pi's subagent capability is provided by an **optional extension** (not 
 ### Prompt Adapters (`pi.prompts`)
 
 The `/pi-*` command wrappers in `pi.prompts`:
-- Read the canonical skill body via `skill://<skill-name>` from the canonical package (`@fernado03/pi-flow`).
-- Accept arguments using original Pi's `$ARGUMENTS` convention.
-- Delegate execution to the canonical skill body—no duplicated logic, no sync drift.
+- Locate the installed `@fernado03/pi-flow` package root (the standard original-Pi npm/git/local install locations)—original Pi has no `skill://` loader to resolve a package reference for you.
+- Read `compat/pi/skills/<skill-name>/SKILL.md` inside that root and follow it—the same generated adapter documented below, which in turn points at the canonical skill body.
+- Accept arguments using original Pi's `$ARGUMENTS` convention and apply the loaded skill to them.
+- No duplicated logic, no sync drift—the wrapper only locates and reads; the adapter and canonical skill still own the content.
 
 ### Skill Adapters (`pi.skills`)
 
@@ -84,7 +85,7 @@ This compatibility export is **generated** from the canonical package (`@fernado
 1. Reads canonical skills from `@fernado03/pi-flow/skills/<name>/SKILL.md`.
 2. Reads canonical commands from `@fernado03/pi-flow/commands/*.md`.
 3. Generates `pi.skills/<name>/SKILL.md` adapters that `skill://` the canonical body.
-4. Generates `pi.prompts/pi-*.md` wrappers that delegate to `skill://` with `$ARGUMENTS`.
+4. Generates `pi.prompts/pi-*.md` wrappers that locate the installed package root and read the corresponding `pi.skills` adapter file, with `$ARGUMENTS`.
 5. Emits a deterministic manifest so the export is reproducible and checkable.
 
 **Check behavior** (`pi compat check` or `npm run compat:check`):

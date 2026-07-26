@@ -92,8 +92,8 @@ This repository also publishes a **compatibility export** of the original Pi (ba
 
 ### What the compat export provides
 
-- `pi.skills/` — Generated adapters that `skill://` the canonical skill bodies from `@fernado03/pi-flow`. No skill bodies are duplicated.
-- `pi.prompts/` — `/pi-*` slash-command wrappers that delegate to canonical skills via `skill://` with original Pi's `$ARGUMENTS` convention.
+- `pi.skills/` — Generated adapters that reference the canonical skill bodies from `@fernado03/pi-flow` by relative path. No skill bodies are duplicated.
+- `pi.prompts/` — `/pi-*` slash-command wrappers that locate the installed package root and read the matching skill adapter, using original Pi's `$ARGUMENTS` convention.
 - **No runtime extension**, no install hook, no executable — same static OMP package model as the canonical package.
 
 ### What the compat export does NOT provide
@@ -118,7 +118,7 @@ This repository also publishes a **compatibility export** of the original Pi (ba
 ### Generator & check behavior (deterministic, checkable)
 
 - Generator reads canonical `skills/<name>/SKILL.md` and `commands/*.md`, emits `pi.skills/<name>/SKILL.md` adapters and `pi.prompts/pi-*.md` wrappers.
-- Check verifies every adapter's `skill://` target exists in canonical package, every wrapper's target skill exists, and manifest matches canonical skill/command set.
+- Check verifies every adapter's canonical-skill target exists, every wrapper's target skill exists, and manifest matches canonical skill/command set.
 - Fails on drift (added/removed/renamed skills or commands without regeneration).
 
 See [`compat/pi/README.md`](compat/pi/README.md) for full details and [`CHANGELOG.md`](CHANGELOG.md#010-compat---2026-07-23) for the compatibility record against badlogic/pi-mono@9b3a205.

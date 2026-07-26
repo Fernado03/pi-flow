@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.2.2 — 2026-07-26
+
+### Fixed
+
+- `/pi-flow` invoked with no arguments no longer risks a crash when OMP passes `undefined` command args; the handler now normalizes args before trimming (`registerCommand` handlers receive `string | undefined`).
+- Root README compat sections updated to describe the package-root locator used by `pi.prompts` wrappers and the relative-path references used by `pi.skills` adapters, instead of `skill://` delegation.
+
+## 0.2.2-compat — 2026-07-26
+
+### Fixed
+
+- Compat prompt wrappers (`compat/pi/prompts/pi-*.md`) no longer reference `skill://`, which does not exist in original Pi and left the wrapper as a dead reference — the adapter skills they targeted are also hidden from Pi's `<available_skills>` by `disable-model-invocation: true`, so nothing outside the wrapper's own text could resolve it either.
+- `generatePromptWrapper` in `scripts/build-pi-compat.js` now emits a deterministic locator: find the installed `@fernado03/pi-flow` package root (`~/.pi/agent/npm/node_modules/@fernado03/pi-flow`, then `.pi/npm/node_modules/@fernado03/pi-flow`, then wherever installed or linked), read `compat/pi/skills/<name>/SKILL.md` inside it, and apply that skill to `$ARGUMENTS`.
+- Regenerated all 31 `compat/pi/prompts/pi-*.md` wrappers; none reference `skill://`. `scripts/check.js` no longer duplicates a separate `skill://` template assertion—the byte-exact drift check (`build-pi-compat.js --check`) already covers wrapper content from the same generator function.
+- `compat/pi/README.md` prompt-adapter sections rewritten to describe the locator mechanism instead of `skill://` delegation.
+
 ## 0.2.1 — 2026-07-23
 
 ### Fixed
