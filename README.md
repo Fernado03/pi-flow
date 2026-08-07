@@ -62,8 +62,7 @@ Use a wrapper in chat, for example `/pi-research` to investigate a decision, `/p
 | Investigate and decide | `/pi-ask`, `/pi-research`, `/pi-wayfinder`, `/pi-explore`, `/pi-questionnaire`, `/pi-to-spec`, `/pi-to-tickets` |
 | Build and improve | `/pi-feature`, `/pi-fix`, `/pi-implement`, `/pi-prototype`, `/pi-refactor`, `/pi-tdd`, `/pi-tweak` |
 | Review and verify | `/pi-code-review`, `/pi-grill`, `/pi-batch-grill`, `/pi-grill-with-docs`, `/pi-verify`, `/pi-triage`, `/pi-diagnose` |
-| Maintain collaboration | `/pi-commit`, `/pi-handoff`, `/pi-resolve-merge`, `/pi-scaffold-context`, `/pi-setup`, `/pi-update-docs` |
-| Practice and design | `/pi-caveman`, `/pi-improve-architecture`, `/pi-teach`, `/pi-writing-great-skills` |
+- Practice and design | `/pi-improve-architecture`, `/pi-teach`, `/pi-writing-for-agents` |
 
 Each wrapper routes to exactly one skill. Read a skill directly when you need its full procedure through `skill://<skill-name>`.
 

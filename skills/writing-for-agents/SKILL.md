@@ -1,14 +1,14 @@
 ---
-name: writing-great-skills
-description: Reference for writing and editing predictable, maintainable skills.
+name: writing-for-agents
+description: Reference for writing and editing any document an agent consumes—skills, AGENTS.md/CLAUDE.md, docs reached by pointer.
 disable-model-invocation: true
 ---
 
-# Writing Great Skills
+# Writing For Agents
 
 A skill exists to wrangle determinism out of a stochastic system. **Predictability** — the model taking the same _process_ every run, not producing the same output — is the root virtue; every lever below serves it.
 
-**Bold terms** are defined in [`GLOSSARY.md`](GLOSSARY.md); read that file when you need the full definition.
+**Bold terms** are defined in [`SKILL-MECHANICS.md`](SKILL-MECHANICS.md); read that file when you need the full definition.
 
 ## Invocation
 
@@ -20,6 +20,15 @@ Two choices trade different costs:
 Choose model invocation only when the model must reach the skill on its own or another skill must. If it only runs by hand, make it user-invoked.
 
 When user-invoked skills multiply beyond what users can remember, add one user-invoked router skill that names the others and when to use them.
+
+## What this covers
+
+This reference covers **any document an agent consumes**:
+- Skills (`SKILL.md`)
+- Agent instructions (`AGENTS.md`, `CLAUDE.md`)
+- Documentation reached by pointer
+
+Not skills alone. This broader scope matters because agents read all three kinds of documents interchangeably.
 
 ## Writing the description
 
@@ -35,7 +44,7 @@ A skill contains **steps** and **reference**. Place each by how immediately the 
 
 1. **In-skill step** — an ordered action in `SKILL.md`. End each step with a checkable, suitably exhaustive **completion criterion**.
 2. **In-skill reference** — a definition, rule, or fact consulted on demand. A flat peer set is valid when the skill is all reference.
-3. **External reference** — reference in a separate file, reached through a **context pointer** only when needed. A sibling `GLOSSARY.md` is disclosed reference.
+3. **External reference** — reference in a separate file, reached through a **context pointer** only when needed. A sibling `SKILL-MECHANICS.md` is disclosed reference.
 
 Demanding completion criteria drive thorough **legwork**, including in reference-only skills.
 
@@ -62,10 +71,16 @@ A **leading word** is a compact, pretrained concept that anchors behavior in few
 
 Refactor repeated ideas into leading words where the word is clearer than repeated prose. For example:
 
-- “fast, deterministic, low-overhead” → _tight_
-- “a loop you believe in” → _red_
+- "fast, deterministic, low-overhead" → _tight_
+- "a loop you believe in" → _red_
 
 Use leading words to reduce tokens and make the intended behavior easier to retrieve.
+
+## Cache
+
+The single source of truth now reaches past the document into the environment. `package.json` scripts, config files, directory layout, and `--help` output are authoritative already, so a doc that restates them is a cache of a lookup that earns its load only when the lookup is expensive.
+
+The positive target: cache what the agent cannot find by looking (unwritten conventions, the reason behind a choice, gotchas no config confesses), and leave one-file, one-command lookups to the environment, where they cannot go stale.
 
 ## Failure modes
 
@@ -75,3 +90,4 @@ Use leading words to reduce tokens and make the intended behavior easier to retr
 - **Sprawl** — a skill too long even when every line is live and unique. Disclose reference and split only by genuine branch or sequence boundaries.
 - **No-op** — a line the model already obeys by default. Replace weak leading words with stronger ones or delete the line.
 - **Negation** — steering by naming the behavior to avoid. State the positive target instead; retain a prohibition only for an irreducible guardrail, paired with the desired behavior.
+- **Negative space** — blindness to the steering done by what you leave _out_: every decision a skill declines is delegated to the agent's priors rather than left neutral, so the cure is to read a draft for its silences and decide each omission deliberately (fill it, or leave it open as a real **branch**).

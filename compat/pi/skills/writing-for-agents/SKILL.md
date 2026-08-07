@@ -1,6 +1,6 @@
 ---
-name: edit-article
-description: Restructure an article and tighten its prose while preserving the argument's dependency order.
+name: writing-for-agents
+description: Reference for writing and editing any document an agent consumes—skills, AGENTS.md/CLAUDE.md, docs reached by pointer.
 disable-model-invocation: true
 ---
 
@@ -20,6 +20,6 @@ This adapter maps the canonical OMP skill to the original Pi contract (badlogic/
 
 ## Source
 
-Canonical skill: `../../../../skills/edit-article/SKILL.md`
+Canonical skill: `../../../../skills/writing-for-agents/SKILL.md`
 
 Read the canonical skill file for the complete skill definition. This adapter only provides the translation layer for original Pi compatibility.

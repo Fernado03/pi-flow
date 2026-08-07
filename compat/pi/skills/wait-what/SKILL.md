@@ -1,6 +1,6 @@
 ---
-name: writing-great-skills
-description: Reference for writing and editing predictable, maintainable skills.
+name: wait-what
+description: One-word corrective for verbosity. Re-pitch the message with context, ASD-STE100, and DOMAIN terms.
 disable-model-invocation: true
 ---
 
@@ -20,6 +20,6 @@ This adapter maps the canonical OMP skill to the original Pi contract (badlogic/
 
 ## Source
 
-Canonical skill: `../../../../skills/writing-great-skills/SKILL.md`
+Canonical skill: `../../../../skills/wait-what/SKILL.md`
 
 Read the canonical skill file for the complete skill definition. This adapter only provides the translation layer for original Pi compatibility.
