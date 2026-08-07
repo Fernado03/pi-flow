@@ -1,7 +1,7 @@
 {
   "name": "@fernado03/pi-flow",
-  "version": "0.2.2",
-  "description": "OMP-native static workflows for deliberate engineering decisions.",
+  "version": "0.2.3",
+  "description": "OMP-native static workflows for deliberate engineering decisions — aligned with mattpocock/skills v1.2.x.",
   "type": "module",
   "license": "MIT",
   "keywords": [
