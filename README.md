@@ -30,6 +30,22 @@ Then reload discovered plugins in the current OMP session:
 /reload-plugins
 ```
 
+## Update
+
+Update the installed package to the latest published version:
+
+```text
+/pi-update
+```
+
+or directly:
+
+```sh
+omp plugin install @fernado03/pi-flow@latest --force
+```
+
+Then reload discovered plugins in the current OMP session with `/reload-plugins`. If the install fails with `ConnectionRefused downloading package manifest`, a `registry=` override in `~/.npmrc`, the project `.npmrc`, or `bunfig.toml` points at an unreachable registry — comment it out and retry against the default npm registry.
+
 ## Static OMP Discovery
 
 OMP discovers this package directly from its conventional roots:
@@ -62,7 +78,8 @@ Use a wrapper in chat, for example `/pi-research` to investigate a decision, `/p
 | Investigate and decide | `/pi-ask`, `/pi-research`, `/pi-wayfinder`, `/pi-explore`, `/pi-questionnaire`, `/pi-to-spec`, `/pi-to-tickets` |
 | Build and improve | `/pi-feature`, `/pi-fix`, `/pi-implement`, `/pi-prototype`, `/pi-refactor`, `/pi-tdd`, `/pi-tweak` |
 | Review and verify | `/pi-code-review`, `/pi-grill`, `/pi-batch-grill`, `/pi-grill-with-docs`, `/pi-verify`, `/pi-triage`, `/pi-diagnose` |
-- Practice and design | `/pi-improve-architecture`, `/pi-teach`, `/pi-writing-for-agents` |
+| Practice and design | `/pi-improve-architecture`, `/pi-teach`, `/pi-writing-for-agents` |
+| Package maintenance | `/pi-update` |
 
 Each wrapper routes to exactly one skill. Read a skill directly when you need its full procedure through `skill://<skill-name>`.
 

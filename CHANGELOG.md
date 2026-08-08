@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.4 — 2026-08-08
+
+### Added
+
+- `/pi-update` command and `self-update` skill: update the installed Pi Flow package to the latest published version, verify with `omp plugin list` and `omp plugin doctor`, and resolve registry blockers (`ConnectionRefused` from dead `registry=` overrides in `.npmrc`/`bunfig.toml`).
+- README `## Update` section and commands-table entry for `/pi-update`.
+- Regenerated all compatibility exports (45 skill adapters, 31 prompt wrappers) in `compat/pi/`.
+
+### Fixed
+
+- `scripts/check.js` version pin updated to match the manifest (was left at `0.2.2` by the 0.2.3 bump, failing `npm run check`).
+- README commands table: `Practice and design` row now renders as a table row instead of a list item.
+
 ## 0.2.3 — 2026-08-07
 
 ### Aligned
