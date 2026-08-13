@@ -10,6 +10,18 @@ function report(path, message) {
   errors.push(`${relative(root, path) || "."}: ${message}`);
 }
 
+// Generated files are compared line-ending-agnostically so a Windows checkout
+// that converts LF to CRLF (git core.autocrlf=true) does not report identical
+// generated content as stale. Normalizing both sides to LF before comparing
+// keeps `--check` portable without weakening genuine-drift detection.
+export function normalizeLineEndings(text) {
+  return text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+}
+
+export function contentMatches(actual, expected) {
+  return normalizeLineEndings(actual) === normalizeLineEndings(expected);
+}
+
 function filesIn(directory) {
   if (!existsSync(directory)) return [];
   const entries = readdirSync(directory, { withFileTypes: true });
@@ -171,7 +183,7 @@ function removeDirContents(dir) {
 function writeIfDifferent(path, content) {
   if (checkOnly) return;
   const existing = existsSync(path) ? readFileSync(path, "utf8") : null;
-  if (existing !== content) {
+  if (existing === null || !contentMatches(existing, content)) {
     writeFileSync(path, content, "utf8");
   }
 }
@@ -182,7 +194,7 @@ function checkFile(path, expectedContent, label) {
     return false;
   }
   const actual = readFileSync(path, "utf8");
-  if (actual !== expectedContent) {
+  if (!contentMatches(actual, expectedContent)) {
     report(path, `${label}: stale or modified generated file`);
     return false;
   }
@@ -266,4 +278,4 @@ function main() {
   }
 }
 
-main();
+if (import.meta.main) main();
