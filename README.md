@@ -96,6 +96,16 @@ npm run pack:check
 
 `check` validates the static package shape, metadata budgets, command-to-skill references, and unsupported platform terminology. `pack:check` previews the npm tarball without publishing.
 
+## Testing
+
+Run the test suite with:
+
+```sh
+npm test
+```
+
+`npm test` invokes [`scripts/test.js`](scripts/test.js), which runs Bun (`bun test`) — the same runtime Oh My Pi already requires (`packageManager: bun@1.3.x`). No devDependency is added because Bun natively executes the TypeScript extension (`extensions/index.ts`) with no transpiler. The launcher prints a clear error when Bun is missing or older than 1.x.
+
 ## License
 
 

@@ -23,12 +23,12 @@ interface PiFlowState {
 	enabled: boolean;
 }
 
+export function isPiFlowState(value: unknown): value is PiFlowState { return typeof value === "object" && value !== null && typeof (value as Record<string, unknown>).enabled === "boolean"; }
+
 function readPersistedState(ctx: ExtensionContext): PiFlowState | undefined {
 	let latest: PiFlowState | undefined;
 	for (const entry of ctx.sessionManager.getBranch()) {
-		if (entry.type === "custom" && entry.customType === STATE_TYPE) {
-			latest = entry.data as PiFlowState;
-		}
+		if (entry.type === "custom" && entry.customType === STATE_TYPE && isPiFlowState(entry.data)) latest = entry.data;
 	}
 	return latest;
 }

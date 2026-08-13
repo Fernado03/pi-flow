@@ -6,7 +6,7 @@ This package provides a **compatibility export** of the original [Pi](https://gi
 
 A generated compatibility layer that translates the original Pi (badlogic/pi-mono@9b3a205, 2026-07-22) into an OMP-compatible package:
 
-- **`pi.skills`** — Generated adapters that load canonical skill bodies from the canonical OMP package (`@fernado03/pi-flow`) via `skill://` references. No skill bodies are duplicated.
+- **`pi.skills`** — Generated adapters that reference the canonical skill body from the canonical OMP package (`@fernado03/pi-flow`) by package-relative path (`../../../../skills/<name>/SKILL.md`), not via `skill://`. No skill bodies are duplicated.
 - **`pi.prompts`** — `/pi-*` slash-command wrappers that locate the installed `@fernado03/pi-flow` package root and read its `compat/pi/skills/<name>/SKILL.md` adapter directly (original Pi has no `skill://` loader). They use original Pi's `$ARGUMENTS` convention.
 - **No runtime extension** — Like the canonical package, this is a static OMP package with no runtime extension, install hook, or executable.
 
@@ -74,7 +74,7 @@ The `/pi-*` command wrappers in `pi.prompts`:
 ### Skill Adapters (`pi.skills`)
 
 Each generated adapter in `pi.skills`:
-- Loads the canonical skill body via `skill://<canonical-skill-name>`.
+- References the canonical skill body by package-relative path (`../../../../skills/<name>/SKILL.md`).
 - Adds only the thin adapter shim (metadata, argument mapping).
 - **No skill body duplication**—the canonical skill body lives only in `@fernado03/pi-flow`.
 
@@ -84,13 +84,13 @@ This compatibility export is **generated** from the canonical package (`@fernado
 
 1. Reads canonical skills from `@fernado03/pi-flow/skills/<name>/SKILL.md`.
 2. Reads canonical commands from `@fernado03/pi-flow/commands/*.md`.
-3. Generates `pi.skills/<name>/SKILL.md` adapters that `skill://` the canonical body.
+3. Generates `pi.skills/<name>/SKILL.md` adapters that reference the canonical body by package-relative path (`../../../../skills/<name>/SKILL.md`).
 4. Generates `pi.prompts/pi-*.md` wrappers that locate the installed package root and read the corresponding `pi.skills` adapter file, with `$ARGUMENTS`.
 5. Emits a deterministic manifest so the export is reproducible and checkable.
 
-**Check behavior** (`pi compat check` or `npm run compat:check`):
-- Verifies every generated adapter's `skill://` target exists in the canonical package.
-- Verifies every generated prompt wrapper's target skill exists.
+**Check behavior** (`npm run build:pi-compat -- --check`, or `npm run check` which runs the compat check as part of the full package check):
+- Verifies every generated adapter's package-relative canonical reference (`../../../../skills/<name>/SKILL.md`) points at an existing canonical skill.
+- Verifies every generated prompt wrapper's target skill exists and contains the `$ARGUMENTS` placeholder.
 - Verifies the manifest matches the canonical package's current skill/command set.
 - Fails on drift—any skill/command added/removed/renamed in the canonical package without regenerating the compat export.
 
@@ -98,9 +98,9 @@ This compatibility export is **generated** from the canonical package (`@fernado
 
 | Compat Export | Original Pi (badlogic/pi-mono) | Canonical OMP Package | Generated From |
 |---------------|--------------------------------|----------------------|----------------|
-| `pi-flow@0.1.0-compat` | `9b3a205` (2026-07-22) | `@fernado03/pi-flow@0.1.0` | `@fernado03/pi-flow@0.1.0` |
+| `pi-flow@0.2.5` | `9b3a205` (2026-07-22) | `@fernado03/pi-flow@0.2.5` | `@fernado03/pi-flow@0.2.5` |
 
-This compatibility export is **generated from** `@fernado03/pi-flow@0.1.0` (derived from mattpocock/skills@ed37663, 2026-07-21) and records compatibility against original Pi at **badlogic/pi-mono@9b3a205 (2026-07-22)**.
+This compatibility export is **generated from** `@fernado03/pi-flow@0.2.5` (derived from mattpocock/skills@ed37663, 2026-07-21) and records compatibility against original Pi at **badlogic/pi-mono@9b3a205 (2026-07-22)**.
 
 ## Canonical Source
 
