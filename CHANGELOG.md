@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.2.6 — 2026-08-13
+
+### Changed
+
+- `npm test` now runs dependency-free under Bun (the runtime Oh My Pi already ships) via `scripts/test.js`, which reports a clear error when Bun is missing or older than 1.x.
+
+### Fixed
+
+- Persisted `pi-flow-mode` state is validated with an exported `isPiFlowState` runtime guard so malformed or foreign entries cannot crash the extension or flip the bridge.
+- `compat/pi/README.md` corrected: `pi.skills` adapters reference canonical skill bodies by package-relative path (not `skill://`), and the documented check commands now name the real `npm run build:pi-compat -- --check` and `npm run check`.
+
+### Added
+
+- Cross-platform smoke tests (extension lifecycle, published-file existence, portable compat metadata) and a `checkOutputPaths()` check preventing reintroduction of obsolete `.scratch/`/`.out-of-scope/` paths.
+- GitHub Actions CI matrix (Ubuntu/Windows/macOS) running `npm test`, `npm run check`, and `npm run pack:check`.
+
 ## 0.2.5 — 2026-08-13
 
 ### Changed
