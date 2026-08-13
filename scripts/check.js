@@ -315,6 +315,25 @@ function checkForbiddenTerms() {
   }
 }
 
+function checkOutputPaths() {
+  const obsoletePaths = [".scratch/", ".out-of-scope/", ".pi-flow/scratch/"];
+  const published = ["skills", "commands", "rules", "compat", "README.md", "CHANGELOG.md"];
+  for (const entry of published) {
+    const resolved = resolve(root, entry);
+    const files = existsSync(resolved) && statSync(resolved).isFile() ? [resolved] : filesIn(resolved);
+    for (const path of files) {
+      const relativePath = relative(root, path).split(sep).join("/");
+      if (relativePath === "CHANGELOG.md") continue;
+      const text = readText(path);
+      for (const pattern of obsoletePaths) {
+        if (text.includes(pattern)) {
+          report(path, `contains obsolete path ${pattern}; write output under .pi-flow/ instead`);
+        }
+      }
+    }
+  }
+}
+
 runBuildPiCompatCheck();
 checkManifest();
 checkPiManifest();
@@ -322,6 +341,7 @@ const skills = checkSkills();
 checkCommands(skills);
 checkRules();
 checkForbiddenTerms();
+checkOutputPaths();
 checkCompatFiles();
 
 if (errors.length) {
