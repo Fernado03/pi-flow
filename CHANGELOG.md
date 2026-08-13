@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.7 — 2026-08-13
+
+### Fixed
+
+- `scripts/build-pi-compat.js` now compares generated compatibility files using a normalized line-ending representation, so a Windows checkout that converts LF to CRLF no longer reports identical generated files as stale in `npm run build:pi-compat -- --check` and `npm run check`.
+
+### Added
+
+- Regression test covering line-ending normalization and genuine generated-file drift detection.
+
 ## 0.2.6 — 2026-08-13
 
 ### Changed

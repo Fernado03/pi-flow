@@ -98,9 +98,9 @@ This compatibility export is **generated** from the canonical package (`@fernado
 
 | Compat Export | Original Pi (badlogic/pi-mono) | Canonical OMP Package | Generated From |
 |---------------|--------------------------------|----------------------|----------------|
-| `pi-flow@0.2.6` | `9b3a205` (2026-07-22) | `@fernado03/pi-flow@0.2.6` | `@fernado03/pi-flow@0.2.6` |
+| `pi-flow@0.2.7` | `9b3a205` (2026-07-22) | `@fernado03/pi-flow@0.2.7` | `@fernado03/pi-flow@0.2.7` |
 
-This compatibility export is **generated from** `@fernado03/pi-flow@0.2.6` (derived from mattpocock/skills@ed37663, 2026-07-21) and records compatibility against original Pi at **badlogic/pi-mono@9b3a205 (2026-07-22)**.
+This compatibility export is **generated from** `@fernado03/pi-flow@0.2.7` (derived from mattpocock/skills@ed37663, 2026-07-21) and records compatibility against original Pi at **badlogic/pi-mono@9b3a205 (2026-07-22)**.
 
 ## Canonical Source
 
