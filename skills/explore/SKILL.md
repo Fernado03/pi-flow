@@ -10,7 +10,7 @@ Map the requested code area at a useful architectural level before planning or c
 Create one ephemeral session at:
 
 ```
-.scratch/explorations/<YYYY-MM-DD>/pi-explore-<slug>/
+.pi-flow/explorations/<YYYY-MM-DD>/pi-explore-<slug>/
 ```
 
 Write `session.md` with the user request, target area, scope, known exclusions, and any question that could not be resolved from repository evidence.
@@ -64,7 +64,7 @@ Read all dimension records and write `synthesis.md` containing:
 - open questions, clearly separating evidence from inference;
 - the most valuable next exploration paths.
 
-Write the exact `synthesis.md` path to `.scratch/LAST-EXPLORATION.md` so later work can locate it.
+Write the exact `synthesis.md` path to `.pi-flow/LAST-EXPLORATION.md` so later work can locate it.
 
 ## Return
 

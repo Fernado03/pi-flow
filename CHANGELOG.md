@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.5 — 2026-08-13
+
+### Changed
+
+- Consolidated all Pi Flow output folders under `.pi-flow/`: the `.scratch/` tree (review sessions, exploration sessions, local tickets, wayfinding maps) and the `.out-of-scope/` tree (rejected-enhancement records) now live under `.pi-flow/` as `reviews/`, `explorations/`, per-feature directories, and `out-of-scope/`.
+
 ## 0.2.4 — 2026-08-08
 
 ### Added

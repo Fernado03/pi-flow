@@ -40,7 +40,7 @@ When pull requests are included, tag each line `[PR]` or `[issue]`; include only
 ## Specific issue or pull request
 
 1. Gather the full body, comments, labels, author, dates, prior triage notes, and—when relevant—the diff. Read applicable domain guidance and `.pi-flow/CONTEXT.md` plus related `.pi-flow/docs/adr/` records.
-2. Check redundancy by searching for the requested behavior by domain concept, and report where you looked. If it already exists, recommend `wontfix` as already implemented. Read matching `.out-of-scope/*.md` files for prior rejections.
+2. Check redundancy by searching for the requested behavior by domain concept, and report where you looked. If it already exists, recommend `wontfix` as already implemented. Read matching `.pi-flow/out-of-scope/*.md` files for prior rejections.
 3. Recommend a category and state with the relevant codebase evidence. Use `ask` before changing labels, posting a comment, closing anything, or making another material maintainer decision.
 4. Verify the claim before specification work: reproduce a reported bug; for a pull request, confirm the diff's claimed behavior with the smallest relevant check. Report confirmed, failed, or insufficient detail.
 5. If material requirements remain unclear, use `ask` one question at a time. Use a `task` batch only for independent, substantial investigation; preserve resolved terminology in `.pi-flow/CONTEXT.md` or an applicable `.pi-flow/docs/adr/` record.

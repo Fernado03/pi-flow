@@ -1,6 +1,6 @@
 # Out-of-Scope Knowledge Base
 
-The project `.out-of-scope/` directory stores durable records of rejected enhancement requests. It preserves the decision and prevents the same request from being re-litigated as new.
+The project `.pi-flow/out-of-scope/` directory stores durable records of rejected enhancement requests. It preserves the decision and prevents the same request from being re-litigated as new.
 
 Use one readable Markdown file per concept, not per request. Keep the reason substantive enough for a maintainer who has not seen the original discussion.
 
@@ -32,7 +32,7 @@ Durable reason based on project scope, technical constraints, or strategy. Inclu
 
 ## Triage flow
 
-1. Read existing `.out-of-scope/*.md` records during context gathering.
+1. Read existing `.pi-flow/out-of-scope/*.md` records during context gathering.
 2. Surface conceptually similar records to the maintainer with their rationale.
 3. If the maintainer confirms the match, append the request under **Prior requests**, post the approved explanation, apply `wontfix`, and close it.
 4. If the maintainer reconsiders the decision, update or delete the record before continuing normal triage. Historical requests remain closed unless the maintainer separately decides otherwise.

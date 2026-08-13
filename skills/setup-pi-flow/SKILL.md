@@ -14,7 +14,7 @@ Inspect only what exists:
 
 - the repository remote and any existing tracker convention;
 - `.pi-flow/issue-tracker.md`, `.pi-flow/triage-labels.md`, `.pi-flow/CONTEXT.md`, and `.pi-flow/docs/adr/`;
-- `.scratch/` for an established local-ticket convention;
+- feature directories under `.pi-flow/` for an established local-ticket convention;
 - whether the triage skill is available;
 - monorepo signals: a workspace manifest or populated packages with source directories.
 

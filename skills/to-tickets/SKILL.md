@@ -41,7 +41,7 @@ Present a numbered graph. For every ticket include its title, blocking edges, an
 
 Use `.pi-flow/issue-tracker.md`:
 
-- **Local markdown:** create one file per ticket under `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, in dependency order. Never combine tickets in one file.
+- **Local markdown:** create one file per ticket under `.pi-flow/<feature-slug>/issues/<NN>-<slug>.md`, in dependency order. Never combine tickets in one file.
 - **Tracker:** create one issue per ticket in dependency order so blockers can use real identifiers. Use native blocking and sub-issue relationships when supported; otherwise write the blocker references in the ticket body. Apply the mapped `ready-for-agent` label when available.
 
 Local ticket structure:

@@ -14,7 +14,7 @@ Keep the axes separate so a pass on one cannot conceal failure on the other.
 
 ## Safety
 
-This is read-only for application source. Never stage, commit, push, stash, delete, or patch source while reviewing. Report findings; leave fixes to the implementation flow. You may write only review working notes under `.scratch/` and review documents explicitly requested by the user.
+This is read-only for application source. Never stage, commit, push, stash, delete, or patch source while reviewing. Report findings; leave fixes to the implementation flow. You may write only review working notes under `.pi-flow/` and review documents explicitly requested by the user.
 
 ## 1. Pin the target
 
@@ -26,7 +26,7 @@ Find the originating specification in this order:
 
 1. issue references in commit messages, using the repository's `.pi-flow/issue-tracker.md` workflow when present;
 2. a path supplied by the user;
-3. a matching document in `docs/`, `specs/`, or `.scratch/`.
+3. a matching document in `docs/`, `specs/`, or `.pi-flow/`.
 
 If no specification exists, state that the Spec axis is unavailable rather than inventing one.
 
@@ -49,7 +49,7 @@ Apply this smell baseline unless a documented repository standard overrides it; 
 
 ## 3. Review independently
 
-Create `.scratch/reviews/<YYYY-MM-DD>/review-<slug>/session.md` with target, fixed point, scope, comparison, commits, evidence sources, and exclusions.
+Create `.pi-flow/reviews/<YYYY-MM-DD>/review-<slug>/session.md` with target, fixed point, scope, comparison, commits, evidence sources, and exclusions.
 
 For a non-trivial review with both axes available, make one `task` batch containing independent work:
 
