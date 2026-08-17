@@ -1,7 +1,6 @@
 ---
 name: writing-for-agents
-description: Reference for writing and editing any document an agent consumes—skills, AGENTS.md/CLAUDE.md, docs reached by pointer.
-disable-model-invocation: true
+description: Writing documents for agents. Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md.
 ---
 
 # Writing For Agents

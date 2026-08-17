@@ -10,7 +10,9 @@
 #   step "<instruction>"          → show instruction, wait for Enter
 #   capture VAR "<question>"      → show question, read response into VAR
 #
-# At the end, captured values are printed as KEY=VALUE for OMP to parse.
+
+# `capture` prints its value back to the terminal, where OMP reads it — so
+# capture observations, and leave signing in to the user as a `step`.
 
 set -euo pipefail
 

@@ -7,6 +7,12 @@ description: Diagnose hard bugs and performance regressions with a tight, red-ca
 
 A discipline for hard bugs. Skip a phase only with an explicit justification. Read project context and local ADRs when they exist so the diagnosis uses the codebase’s domain language.
 
+## Redact
+
+This skill has you show commands, outputs and captured artifacts. **Redact every secret first** — write `<REDACTED>` in its place. Build loops against env vars, so the credential stays in the environment rather than in what you show. Captured artifacts carry auth headers: quote only the lines that carry the signal.
+
+If the redacted output is not enough to diagnose the bug, say so and ask the user.
+
 ## Phase 1 — Build a feedback loop
 
 **This is the skill.** A tight pass/fail signal that goes red on the reported bug makes bisection, hypothesis testing, and instrumentation useful. Without one, do not speculate from code.
@@ -26,9 +32,9 @@ Try these, roughly in order:
 
 Treat the loop as a product: make it faster, assert the precise symptom, and eliminate nondeterminism by pinning time, seeding randomness, isolating files, and freezing network inputs. For flaky failures, raise the reproduction rate with repeated runs, stress, or narrowed timing windows.
 
-If no loop is possible, state what was tried and request one of: access to the reproducing environment, a captured artifact (HAR, logs, core dump, timestamped recording), or permission for temporary production instrumentation. Do not proceed to hypotheses without a loop.
+If no loop is possible, state what was tried and request one of: access to the reproducing environment, a redacted captured artifact (HAR, logs, core dump, timestamped recording), or permission for temporary production instrumentation. Do not proceed to hypotheses without a loop.
 
-Phase 1 is complete only after running one OMP-runnable command at least once and recording its invocation and output. It must be red-capable for the user’s exact symptom, deterministic (or reproduce at a high enough rate), and fast.
+Phase 1 is complete only after running one OMP-runnable command at least once and recording its invocation and output, redacted. It must be red-capable for the user’s exact symptom, deterministic (or reproduce at a high enough rate), and fast.
 
 ## Phase 2 — Reproduce and minimise
 

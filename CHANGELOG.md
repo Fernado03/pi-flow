@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.2.8 — 2026-08-17
+
+### Aligned
+
+- Synced with upstream mattpocock/skills v1.2.3.
+
+### Changed
+
+- `writing-for-agents`: now model-invoked — removed `disable-model-invocation: true` from frontmatter so the model reaches it autonomously; updated `agents/openai.yaml` metadata (`display_name`, `short_description`) and dropped stale `allow_implicit_invocation: false`.
+- `wizard`: removed time-estimate plumbing — dropped `TOTAL_MINUTES` and `_MINUTES_ELAPSED` from `template.sh`; `stage` now takes a name only; banner shows stages-count only; SKILL.md wording matches.
+- `diagnosing-bugs`: added **Redact** section; Phase 1 completion criterion and "no loop" artifact request now specify redacted captured artifact; `scripts/hitl-loop.template.sh` notes that `capture` prints its value back to the terminal.
+- `code-review`, `codebase-design`, `improve-codebase-architecture`: dispatch instructions already OMP-native (`task`/`scout`/`reviewer`); no Claude Code tool or agent-type names remain.
+
+### Generated
+
+- Regenerated all compatibility exports (45 skill adapters, 31 prompt wrappers) in `compat/pi/`.
+
 ## 0.2.7 — 2026-08-13
 
 ### Fixed
